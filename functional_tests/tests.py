@@ -8,8 +8,19 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
-    #def tearDown(self):
-        #self.browser.quit()
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_layout_and_styling(self):
+        self.browser.get('http://localhost:8000')
+        self.browser.set_window_size(1024,768)
+
+        inputbox= self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x']+ inputbox.size['width']/2,
+            512,
+            delta=5
+        )
 
 
     def check_for_row_in_list_table(self, row_text):
